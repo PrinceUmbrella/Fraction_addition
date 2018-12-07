@@ -3,7 +3,7 @@
 using namespace std;
 
 
-int convertOutPut(int numerator, int denominator);
+void convertOutPut(int numerator, int denominator);
 int *ifProper(string fraction);
 int *ifMixed(string fractionInput);
 int numStringToInt(string numString);
@@ -207,7 +207,7 @@ int *ifProper(string fraction){
 //fraction.                                        //
 /////////////////////////////////////////////////////
 
-int convertOutPut(int numerator, int denominator){
+void convertOutPut(int numerator, int denominator){
 
     int factor = GCF(numerator, denominator);
     numerator = numerator/factor;
