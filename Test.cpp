@@ -11,18 +11,26 @@ string sliceTheString(int previous, int next, string partOfFraction, string Frac
 int findLength(string fractionInput);
 int GCF(int input1, int input2);
 int checkIfMixed(string fractionInput);
+int powerFunction(int postionOnString);
 
 
 
 int main(){
 
     string fractionInput1, fractionInput2;
+    int *fractionInput1Array = nullptr;
+    int*fractionInput2Array = nullptr;
+    int doOtherFraction;
+
+    cout<< "This Program Will add Two numbers in a fraction form"<< endl;
+    cout<< "------> If you want to enter normal fraction enter in just --> A/B <--form"<< endl;
+    cout<< "------> If you want to enter mixed fraction enter in just --> A(B/C) <-- form"<< endl;
+
     cout<<"Enter number 1: ";
     cin>>fractionInput1;
     cout<<"Enter number 2: ";
     cin >> fractionInput2;
-    int *fractionInput1Array = nullptr;
-    int*fractionInput2Array = nullptr;
+
     if(checkIfMixed(fractionInput1)){
         fractionInput1Array = ifMixed(fractionInput1);
     }
@@ -35,9 +43,11 @@ int main(){
     else{
         fractionInput2Array = ifProper(fractionInput2);
     }
+
     int newNumerator, newDenominator;
     newNumerator = fractionInput1Array[0]*fractionInput2Array[1]+fractionInput1Array[1]*fractionInput2Array[0];
     newDenominator = fractionInput1Array[1]*fractionInput2Array[1];
+
     convertOutPut(newNumerator,newDenominator);
 
     delete[]fractionInput1Array;
@@ -83,11 +93,11 @@ int GCF( int x, int y )
 //////////////////////////////////////////////////
 
 int findLength(string fractionInput){
-    int i = 0;
-    while(fractionInput[i]){
-        i++;
+    int length = 0;
+    while(fractionInput[length]){
+        length++;
     }
-    return i;
+    return length;
 }
 
 ///////////////////////////////////////////////////////////
@@ -111,10 +121,10 @@ string sliceTheString(int previous, int next, string partOfFraction, string Frac
 int numStringToInt(string numString){
     int lenOfString = findLength(numString)-1;
     int finalNum=0;
+    int convertedToInt=0;
     for(int i=0;i<=lenOfString; i++){
-        int convertedToInt;
         convertedToInt = numString[i]-'0';
-        finalNum +=(convertedToInt*pow(10,lenOfString-i));
+        finalNum +=(convertedToInt*powerFunction(lenOfString-i));
     }
     return finalNum;
 }
@@ -194,7 +204,7 @@ int *ifProper(string fraction){
 /////////////////////////////////////////////////////
 // This Function Takes the final numerator and     //
 //denominator and converts it to Mixed or proper   //
-//fraction                                         //
+//fraction.                                        //
 /////////////////////////////////////////////////////
 
 int convertOutPut(int numerator, int denominator){
@@ -204,15 +214,30 @@ int convertOutPut(int numerator, int denominator){
     denominator = denominator/factor;
     int preceedingValue = numerator/denominator;
     int remainder = numerator%denominator;
-
+    cout<<endl;
+    cout<< "The final result is: ";
     if(preceedingValue==0 || remainder == 0){
        cout <<numerator<<"/"<<denominator<< endl;
     }
     else{
-
-
         cout<< preceedingValue << "("<<remainder<< "/"<< denominator << ")"<< endl;
     }
 
 }
 
+
+/////////////////////////////////////////////////////////
+// Because of the usage of the power function in CMATH //
+// I had to write the power function my self. which    //
+// avoids making the marginal error which is 10**2=99. //
+// the pow() uses log for faster calculation however it//
+// gives a very close approximation to .999..          //
+/////////////////////////////////////////////////////////
+
+int powerFunction(int postionOnString){
+    int result = 1;
+    for(int i= 0; i<postionOnString;i++){
+       result*=10;
+    }
+    return result;
+}
