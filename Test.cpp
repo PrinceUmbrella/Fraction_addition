@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cmath>
 using namespace std;
 
 
@@ -72,7 +71,7 @@ int checkIfMixed(string fractionInput){
 
 ////////////////////////////////////////////////////
 // Uses the recursive algorithm to calculate the  //
-// GCD of two terms.                              //
+// GCF of two terms.                              //
 ////////////////////////////////////////////////////
 
 int GCF( int x, int y )
